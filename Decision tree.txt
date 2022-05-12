@@ -1,0 +1,39 @@
+import numpy as np
+import pandas as pd
+from google.colab import drive
+#drive.mount('/content/drive')
+#df=pd.read_csv('gdrive/My Drive/data.csv'
+#df = pd.read_csv('drive/My Drive/Colab Notebooks/KNNdata.csv')
+df = pd.read_csv('drive/My Drive/Colab Notebooks/CosmeticsDataset.csv')
+print(df)
+
+X = df.iloc[:,:-1]
+y = df.iloc[:,5]
+print(X)
+print(y)
+
+from sklearn.preprocessing import LabelEncoder
+le = LabelEncoder()
+
+X = X.apply(le.fit_transform)
+print(X)
+
+from sklearn.tree import DecisionTreeClassifier
+classifier = DecisionTreeClassifier()
+classifier.fit(X.iloc[:, 1:5], y)
+
+x_test = np.array([[1,1,0,0]])
+y_pred = classifier.predict(x_test)
+print(y_pred)
+
+#from sklearn.externals.six import StringIO
+#from IPython.display import Image
+#from sklearn.tree import export_graphviz
+#import pydotplus
+# Creating Object of StringIO
+#dataobj=StringIO()
+#Object will be given to this export_graphviz
+#export_graphviz(regressor, out_file=dataobj, filled=True, rounded=True, special_characters=True)
+#Creating graph
+#graph=pydotplus.graph_from_dot_data(dataobj.getvalue())
+#Image(graph.create_png())
